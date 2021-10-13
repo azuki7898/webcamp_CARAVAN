@@ -9,6 +9,11 @@ class BlogsController < ApplicationController
 
   def new
     @blog = Blog.new
+    if @blog.save
+       redirect_to blog_path(@blog.id)
+    else
+      render :new
+    end
   end
 
   def create
@@ -27,7 +32,7 @@ class BlogsController < ApplicationController
     blog.update(blog_params)
     redirect_to blog_path(blog)
   end
-  
+
   def destroy
     blog = Blog.find(params[:id])
     blog.destroy
